@@ -1,5 +1,7 @@
 # Fork of upstream with ALL PR merged except CORS fix.
 
+## Epdated Dist/Build to reflect changes in codebase. Simple as `npm install` && `import Vibrant from @maxcr/node-vibrant`
+
 # node-vibrant
 [![Build Status](https://travis-ci.org/akfish/node-vibrant.svg?branch=master)](https://travis-ci.org/akfish/node-vibrant)
 
