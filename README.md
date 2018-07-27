@@ -1,3 +1,5 @@
+# Fork of upstream with ALL PR except CORS fix.
+
 # node-vibrant
 [![Build Status](https://travis-ci.org/akfish/node-vibrant.svg?branch=master)](https://travis-ci.org/akfish/node-vibrant)
 
