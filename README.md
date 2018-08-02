@@ -1,4 +1,4 @@
-# Fork of upstream with ALL PR merged except CORS fix.
+# Fork of upstream with ALL PR merged.
 
 ## Updated Dist/Build to reflect changes in codebase. Simple as `npm install` && `import Vibrant from @maxcr/node-vibrant`
 
