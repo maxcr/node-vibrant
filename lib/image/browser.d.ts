@@ -1,6 +1,6 @@
 import { ImageData, ImageSource } from '../typing';
 import { ImageBase } from './base';
-export default class BroswerImage extends ImageBase {
+export default class BrowserImage extends ImageBase {
     image: HTMLImageElement;
     private _canvas;
     private _context;

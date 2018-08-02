@@ -6447,12 +6447,12 @@ function isSameOrigin(a, b) {
         && ua.hostname === ub.hostname
         && ua.port === ub.port;
 }
-var BroswerImage = /** @class */ (function (_super) {
-    __extends(BroswerImage, _super);
-    function BroswerImage() {
+var BrowserImage = /** @class */ (function (_super) {
+    __extends(BrowserImage, _super);
+    function BrowserImage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    BroswerImage.prototype._initCanvas = function () {
+    BrowserImage.prototype._initCanvas = function () {
         var img = this.image;
         var canvas = this._canvas = document.createElement('canvas');
         var context = this._context = canvas.getContext('2d');
@@ -6463,16 +6463,13 @@ var BroswerImage = /** @class */ (function (_super) {
         context.drawImage(img, 0, 0);
         document.body.appendChild(canvas);
     };
-    BroswerImage.prototype.load = function (image) {
+    BrowserImage.prototype.load = function (image) {
         var _this = this;
         var img = null;
         var src = null;
         if (typeof image === 'string') {
             img = document.createElement('img');
-            src = img.src = image;
-            if (!isRelativeUrl(src) && !isSameOrigin(window.location.href, src)) {
-                img.crossOrigin = 'anonymous';
-            }
+            src = image;
         }
         else if (image instanceof HTMLImageElement) {
             img = image;
@@ -6482,6 +6479,12 @@ var BroswerImage = /** @class */ (function (_super) {
             return Promise.reject(new Error("Cannot load buffer as an image in browser"));
         }
         this.image = img;
+        if (!isRelativeUrl(src) && !isSameOrigin(window.location.href, src)) {
+            img.crossOrigin = 'anonymous';
+        }
+        if (typeof image === 'string') {
+            img.src = src;
+        }
         return new Promise(function (resolve, reject) {
             var onImageLoad = function () {
                 _this._initCanvas();
@@ -6497,39 +6500,37 @@ var BroswerImage = /** @class */ (function (_super) {
             }
         });
     };
-    BroswerImage.prototype.clear = function () {
+    BrowserImage.prototype.clear = function () {
         this._context.clearRect(0, 0, this._width, this._height);
     };
-    BroswerImage.prototype.update = function (imageData) {
+    BrowserImage.prototype.update = function (imageData) {
         this._context.putImageData(imageData, 0, 0);
     };
-    BroswerImage.prototype.getWidth = function () {
+    BrowserImage.prototype.getWidth = function () {
         return this._width;
     };
-    BroswerImage.prototype.getHeight = function () {
+    BrowserImage.prototype.getHeight = function () {
         return this._height;
     };
-    BroswerImage.prototype.resize = function (targetWidth, targetHeight, ratio) {
+    BrowserImage.prototype.resize = function (targetWidth, targetHeight, ratio) {
         var _a = this, canvas = _a._canvas, context = _a._context, img = _a.image;
         this._width = canvas.width = targetWidth;
         this._height = canvas.height = targetHeight;
         context.scale(ratio, ratio);
         context.drawImage(img, 0, 0);
     };
-    BroswerImage.prototype.getPixelCount = function () {
+    BrowserImage.prototype.getPixelCount = function () {
         return this._width * this._height;
     };
-    BroswerImage.prototype.getImageData = function () {
+    BrowserImage.prototype.getImageData = function () {
         return this._context.getImageData(0, 0, this._width, this._height);
     };
-    BroswerImage.prototype.remove = function () {
-        if (this._canvas && this._canvas.parentNode) {
-            this._canvas.parentNode.removeChild(this._canvas);
-        }
+    BrowserImage.prototype.remove = function () {
+        this._canvas.parentNode.removeChild(this._canvas);
     };
-    return BroswerImage;
+    return BrowserImage;
 }(base_1.ImageBase));
-exports.default = BroswerImage;
+exports.default = BrowserImage;
 
 
 /***/ }),
