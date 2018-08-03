@@ -6469,7 +6469,10 @@ var BrowserImage = /** @class */ (function (_super) {
         var src = null;
         if (typeof image === 'string') {
             img = document.createElement('img');
-            src = image;
+            src = img.src = image;
+            if (!isRelativeUrl(src) && !isSameOrigin(window.location.href, src)) {
+                img.crossOrigin = 'anonymous';
+            }
         }
         else if (image instanceof HTMLImageElement) {
             img = image;
@@ -6479,12 +6482,6 @@ var BrowserImage = /** @class */ (function (_super) {
             return Promise.reject(new Error("Cannot load buffer as an image in browser"));
         }
         this.image = img;
-        if (!isRelativeUrl(src) && !isSameOrigin(window.location.href, src)) {
-            img.crossOrigin = 'anonymous';
-        }
-        if (typeof image === 'string') {
-            img.src = src;
-        }
         return new Promise(function (resolve, reject) {
             var onImageLoad = function () {
                 _this._initCanvas();

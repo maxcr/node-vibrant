@@ -45,7 +45,10 @@ export default class BrowserImage extends ImageBase {
     let src: string = null
     if (typeof image === 'string') {
       img = document.createElement('img')
-      src = image
+      src = img.src = image
+      if (!isRelativeUrl(src) && !isSameOrigin(window.location.href, src)) {
+        img.crossOrigin = 'anonymous'
+      }
     } else if (image instanceof HTMLImageElement) {
       img = image
       src = image.src
@@ -54,13 +57,7 @@ export default class BrowserImage extends ImageBase {
     }
     this.image = img
 
-    if (!isRelativeUrl(src) && !isSameOrigin(window.location.href, src)) {
-      img.crossOrigin = 'anonymous'
-    }
 
-    if (typeof image === 'string') {
-      img.src = src
-    }
 
     return new Promise<ImageBase>((resolve, reject) => {
       let onImageLoad = () => {
