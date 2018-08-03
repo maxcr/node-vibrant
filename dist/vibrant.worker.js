@@ -6458,10 +6458,10 @@ var BrowserImage = /** @class */ (function (_super) {
         var context = this._context = canvas.getContext('2d');
         canvas.className = 'vibrant-canvas';
         canvas.style.display = 'none';
+        document.body.appendChild(canvas);
         this._width = canvas.width = img.width;
         this._height = canvas.height = img.height;
         context.drawImage(img, 0, 0);
-        document.body.appendChild(canvas);
     };
     BrowserImage.prototype.load = function (image) {
         var _this = this;

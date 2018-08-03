@@ -32,13 +32,12 @@ export default class BrowserImage extends ImageBase {
 
     canvas.className = 'vibrant-canvas'
     canvas.style.display = 'none'
+    document.body.appendChild(canvas)
 
     this._width = canvas.width = img.width
     this._height = canvas.height = img.height
 
     context.drawImage(img, 0, 0)
-
-    document.body.appendChild(canvas)
   }
   load(image: ImageSource): Promise<ImageBase> {
     let img: HTMLImageElement = null
